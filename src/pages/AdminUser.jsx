@@ -91,6 +91,7 @@ const AdminUser = ({ updateTotalOrders }) => {
           Authorization: `Bearer ${localStorageToken}`,
         },
       })
+      console.log("order details get",response)
       setAddresses(response.data)
       updateTotalOrders(response.data.length)
     } catch (err) {
@@ -116,7 +117,7 @@ const AdminUser = ({ updateTotalOrders }) => {
   const filteredOrders = addresses
     .filter(
       (order) =>
-        order.address.firstName.toLowerCase().includes(searchTerm.toLowerCase()) && order.status !== "ConfirmedOrder",
+        order.address.firstName?.toLowerCase().includes(searchTerm?.toLowerCase()) && order.status !== "ConfirmedOrder",
     )
     .sort((a, b) => {
       if (a.status === "Confirmed" && b.status !== "Confirmed") return 1
@@ -132,7 +133,7 @@ const AdminUser = ({ updateTotalOrders }) => {
   return (
     <div className="admin-orders p-6">
       <ToastContainer />
-      <h2 className="text-3xl font-bold mb-6 text-center text-gray-800" style={{ color: "#000" }}>
+      <h2 className="text-3xl font-bold mb-7 text-center text-gray-800" style={{ color: "#000" }}>
         Product Orders Details
       </h2>
       <div className="search-container mb-4">
@@ -165,26 +166,26 @@ const AdminUser = ({ updateTotalOrders }) => {
                   <td data-label="Sr. No">{index + 1}</td>
                   <td data-label="Product Details">
                     <div>
-                      <p>Product Id: {order.items[0]._id}</p>
+                      <p><strong>Product Id:</strong> {order.items[0].productId}</p>
                       {/* <p>Product Color: {order.items[0].color}</p> */}
-                      <p>Size: {order.items[0].size}</p>
-                      <p>Quantity: {order.items[0].quantity}</p>
+                      <p><strong>Size:</strong> {order.items[0].size}</p>
+                      <p><strong>Quantity:</strong> {order.items[0].quantity}</p>
                     </div>
                   </td>
                   <td data-label="User Details">
                     <div>
-                      <p>First Name: {order.address.firstName}</p>
-                      <p>Last Name: {order.address.lastName}</p>
-                      <p>Email: {order.address.email}</p>
-                      <p>Phone: {order.address.phone}</p>
+                      <p><strong>Name:</strong> {order.address.firstName} {order.address.lastName} </p>
+                      {/* <p>Last Name: {order.address.lastName}</p> */}
+                      <p><strong>Email:</strong> {order.address.email}</p>
+                      <p><strong>Phone:</strong> {order.address.phone}</p>
                     </div>
                   </td>
                   <td data-label="Address">
                     <div>
-                      <p>Street: {order.address.street}</p>
-                      <p>City: {order.address.city}</p>
-                      <p>State: {order.address.state}</p>
-                      <p>Landmark: {order.address.landMark}</p>
+                      <p><strong>Street:</strong> {order.address.street}</p>
+                      <p><strong>City:</strong> {order.address.city}</p>
+                      <p><strong>State:</strong> {order.address.state}</p>
+                      <p><strong>Landmark:</strong> {order.address.landMark}</p>
                     </div>
                   </td>
                   <td data-label="Payment">

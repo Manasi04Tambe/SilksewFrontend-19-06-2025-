@@ -6,7 +6,7 @@
     padding: 20px 40px; /* Adjusted padding for a cleaner layout */
     background-color: #333;
     color: white;
-    position: relative;
+    position: fixed;
   }
   
   .nav-logo {
@@ -77,8 +77,8 @@
     position: absolute;
     top: -5px;
     right: -5px;
-    background-color: red;
-    color: white;
+    background-color:whitesmoke;
+    /* color: black; */
     border-radius: 50%;
     padding: 5px;
     font-size: 12px;

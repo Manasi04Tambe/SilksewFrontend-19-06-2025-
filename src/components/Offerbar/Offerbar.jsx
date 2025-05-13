@@ -1,7 +1,11 @@
-import { useState, useEffect } from "react"
+
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import "../Offerbar/Offerbar.css"
 
 export default function SaleTimer() {
+  const [offer, setOffer] = useState(null);  // Initialize offer state
+  const [totalDays, setTotalDays] = useState(null);
   const [timeLeft, setTimeLeft] = useState({
     days: 0,
     hours: 24,
@@ -34,28 +38,68 @@ export default function SaleTimer() {
     "Best Prices Ever! 💫",
   ]
 
+
+  // Fetch the offer data from the backend
+  useEffect(() => {
+    const fetchOffer = async () => {
+      try {
+        const res = await axios.get("http://localhost:5001/api/offer/get-offer");
+        setOffer(res.data.offer);
+        console.log("Offer response:", res.data.offer);
+      } catch (err) {
+        console.error("Error fetching offer:", err);
+      }
+    };
+
+    fetchOffer();
+  }, []);
+
+  useEffect(() => {
+    if (offer?.startDate && offer?.endDate) {
+      const start = new Date(offer.startDate);
+      const end = new Date(offer.endDate);
+      const days = Math.ceil((end - start) / (1000 * 60 * 60 * 24));
+      setTotalDays(days);
+    }
+  }, [offer]);
+
+  const formatOfferDates = (start, end) => {
+    const startDate = new Date(start);
+    const endDate = new Date(end);
+
+    const options = { day: "numeric", month: "short" }; // 'short' => Jan, Feb, etc.
+
+    const formattedStart = startDate.toLocaleDateString("en-GB", options); // e.g., 12 May
+    const formattedEnd = endDate.toLocaleDateString("en-GB", options);     // e.g., 16 May
+
+    return `${formattedStart} to ${formattedEnd}`;
+  };
+
   return (
     <div className="sale-wrapper">
       <div className="sale-container">
         <div className="timer-section">
           <div className="sale-text blink">Sale is Live !!!</div>
+
+          {offer?.startDate && offer?.endDate && (
+            <div className="offer-date-range">
+              🗓️ <strong>{formatOfferDates(offer.startDate, offer.endDate)}</strong>
+            </div>
+          )}
+
           <div className="countdown">
             <div className="time-unit">
-              <span className="number">{String(timeLeft.days).padStart(2, "0")}</span>
-              <span className="label">days</span>
+              <span className="number">{totalDays} days {offer?.value}% OFF </span>
+              {/* <span className="label">days</span> */}
             </div>
-            <div className="time-unit">
-              <span className="number">{String(timeLeft.hours).padStart(2, "0")}</span>
-              <span className="label">hours</span>
+            <div className="code-section">
+              <span className="number">{offer?.code}</span>
+              <span className="label">CODE</span>
+
+            
+
             </div>
-            <div className="time-unit">
-              <span className="number">{String(timeLeft.minutes).padStart(2, "0")}</span>
-              <span className="label">min</span>
-            </div>
-            <div className="time-unit">
-              <span className="number">{String(timeLeft.seconds).padStart(2, "0")}</span>
-              <span className="label">sec</span>
-            </div>
+ 
           </div>
         </div>
         <div className="marquee-section">

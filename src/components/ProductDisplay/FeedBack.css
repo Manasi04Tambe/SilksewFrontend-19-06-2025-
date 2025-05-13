@@ -55,9 +55,7 @@ h2, .customer {
   font-size: 24px;
   margin-bottom: 20px;
   color: #333;
-  /* position: sticky; */
   top: 0;
-  /* background: #fff; */
   padding: 10px 0;
   z-index: 1;
 }

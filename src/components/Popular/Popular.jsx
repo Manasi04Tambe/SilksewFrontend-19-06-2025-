@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Popular.css';
@@ -13,7 +14,6 @@ const Popular = () => {
     const fetchProducts = async () => {
       try {
         const response = await axios.get('http://localhost:5001/api/products/list');
-        // console.log(response);
         const fetchedProducts = Array.isArray(response.data) ? response.data : response.data.products;
         const womenProducts = fetchedProducts.filter((product) => product.category.includes('men'));
         setProducts(womenProducts);
@@ -59,6 +59,12 @@ const Popular = () => {
     return 'https://via.placeholder.com/150'; // Default placeholder image if no valid image found
   };
 
+  const calculateDiscount = (price, oldPrice) => {
+    if (!oldPrice) return null;
+    const discount = ((oldPrice - price) / oldPrice) * 100;
+    return Math.round(discount);
+  };
+
   if (loading) return <div className="loading">Loading...</div>;
   if (error) return <div className="error">{error}</div>;
 
@@ -69,35 +75,27 @@ const Popular = () => {
       <div className="popular-items">
         {products.length > 0 ? (
           products.slice(0, 4).map((item) => (
-            <div
-              key={item._id}
-              className="interactive-card"
-              onMouseMove={(e) => {
-                const card = e.currentTarget;
-                const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left - rect.width / 2;
-                const y = e.clientY - rect.top - rect.height / 2;
-                card.style.transform = `rotateY(${x / 20}deg) rotateX(${y / 20}deg)`;
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.transform = 'rotateY(0) rotateX(0)';
-              }}
-            >
-              <div className="card-image-wrapper">
-                {/* Fetch the image based on the color and available images */}
+            <div key={item._id} className="product-card">
+              <div className="product-image-container">
                 <img
                   src={getImage(item.images, item.availableColors)}
                   alt={item.name}
                   className="product-image"
                 />
               </div>
-              <div className="card-info">
-                <h2 className="card-title">{shortenName(item.name)}</h2>
-                <p className="price">
-                  <span className="new-price">Rs.{item.price}</span>
-                  {item.oldPrice && <span className="old-price">Rs.{item.oldPrice}</span>}
-                </p>
-                <button onClick={() => handleViewProduct(item)} className="animated-button" style={{color:"white"}}>
+              <div className="product-details">
+                <div className="brand-name">{item.brand || 'BRAND'}</div>
+                <h3 className="product-name">{shortenName(item.name)}</h3>
+                <div className="price-container">
+                  <span className="current-price">₹ {item.price}</span>
+                  {item.oldPrice && (
+                    <span className="original-price">₹ {item.oldPrice}</span>
+                  )}
+                </div>
+                <button 
+                  onClick={() => handleViewProduct(item)} 
+                  className="view-product-btn"
+                >
                   View Product
                 </button>
               </div>

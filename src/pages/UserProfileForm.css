@@ -85,3 +85,48 @@
     }
   }
   
+
+  .profile-wrapper {
+    max-width: 400px;
+    margin: 40px auto;
+    text-align: center;
+  }
+  
+  .profile-title {
+    font-size: 28px;
+    color: #2196f3;
+    font-weight: 600;
+    margin-bottom: 20px;
+  }
+  
+  .profile-card {
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    margin-bottom: 30px;
+  }
+  
+  .profile-avatar {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 15px;
+    border-radius: 50%;
+    border: 2px solid #000;
+  }
+  
+  .edit-btn {
+    margin-top: 15px;
+    padding: 10px 20px;
+    background-color: #2196f3;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  
+  .edit-btn:hover {
+    background-color: #0d6efd;
+  }
+  

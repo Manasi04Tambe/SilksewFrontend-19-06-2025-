@@ -4,132 +4,153 @@
   padding: 30px;
   position: relative;
   overflow: hidden;
+  max-width: 1365px;
+  margin: 50px auto 0;
 }
 
 .section-title {
-  color: #4A4A4A;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+  color: #333;
+  font-size: 24px;
   margin-bottom: 10px;
 }
 
-/* Gradient Line Replacing <hr> */
 .gradient-line {
-  width: 200px;
-  height: 4px;
-  margin: 10px auto 20px;
-  background: linear-gradient(90deg, #7F8C8D, #F5B7B1);
+  width: 100px;
+  height: 3px;
+  margin: 10px auto 30px;
+  background: #333;
   border-radius: 2px;
 }
 
 .popular-items {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 40px;
-  z-index: 10;
-  position: relative;
-  margin-top: 30px
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+  padding: 20px 0;
 }
 
-/* Interactive Card Styling */
-.interactive-card {
-  width: 320px;
-  background: linear-gradient(135deg, #ffffff, #f8f9fa);
-  border-radius: 20px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-  transition: transform 0.4s ease, box-shadow 0.4s ease;
-  position: relative;
+/* Product Card Styling */
+.product-card {
+  background: #fff;
+  border-radius: 8px;
   overflow: hidden;
-  perspective: 1000px;
-  transform-style: preserve-3d;
-}
-
-.interactive-card:hover {
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
-}
-
-.card-image-wrapper {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
   position: relative;
-  height: 220px;
-  overflow: hidden;
-  border-radius: 20px 20px 0 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.product-image-container {
+  position: relative;
+  padding-top: 100%; 
+  background: #f5f5f5;
 }
 
 .product-image {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
-  object-fit:contain;
-  transition: transform 0.5s ease;
+  object-fit: cover;
 }
 
-.interactive-card:hover .product-image {
+.discount-tag {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: #ff4444;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.favorite-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: transparent;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  padding: 8px;
+  transition: transform 0.2s ease;
+}
+
+.favorite-button:hover {
   transform: scale(1.1);
 }
 
-/* Card Info Section */
-.card-info {
-  padding: 20px;
+.product-details {
+  padding: 15px;
+  text-align: left;
+}
+
+.brand-name {
+  color: #666;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 5px;
+  text-transform: uppercase;
+}
+
+.product-name {
+  color: #333;
+  font-size: 14px;
+  margin: 5px 0;
+  font-weight: normal;
+  line-height: 1.4;
+}
+
+.price-container {
+  margin: 10px 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.current-price {
+  color: #333;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.original-price {
+  color: #999;
+  text-decoration: line-through;
+  font-size: 14px;
+}
+
+.view-product-btn {
+  width: 100%;
+  padding: 8px 15px;
+  background: white;
+  color: #1a1a1a;
+  border: 1px solid #ddd;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
   text-align: center;
 }
 
-.card-title {
-  font-size: 1.4rem;
-  color: #333;
-  margin-bottom: 12px;
-  letter-spacing: 0.6px;
-}
-
-.price {
-  font-size: 1.2rem;
-  margin-bottom: 20px;
-}
-
-.new-price {
-  color: #dc0d0d;
-  font-weight: bold;
-}
-
-.old-price {
-  color: #aaa;
-  text-decoration: line-through;
-  margin-left: 10px;
-}
-
-/* Button with Animated Gradient */
-.animated-button {
-  display: inline-block;
-  padding: 12px 35px;
-  font-size: 1rem;
-  color: #ffffff;
-  font-weight: bold;
+.view-product-btn:hover {
   background: #4d0000;
-  border: none;
-  /* border-radius: 0 2px 2px 2px; */
-  box-shadow: 0 5px 15px rgba(0, 123, 255, 0.4);
-  cursor: pointer;
-  transition: all 0.3s ease;
-  position: relative;
-  overflow: hidden;
+  color: white;
+  border-color: #1a1a1a;
 }
 
-.animated-button:hover {
-  transform: translateY(-3px);
-  color: #fff;
-  background: linear-gradient(90deg, #C0392B, #FDF3E7);
-}
-
-.animated-button::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -50%;
-  width: 200%;
-  height: 100%;
-  /* background: #4d0000; */
-  transform: skewX(-30deg);
-  transition: left 0.5s;
-}
-
-.animated-button:hover::after {
-  left: 150%;
+/* Loading and Error States */
+.loading, .error {
+  text-align: center;
+  padding: 20px;
+  color: #666;
 }

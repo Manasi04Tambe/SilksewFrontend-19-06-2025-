@@ -1,6 +1,4 @@
 "use client"
-
-// eslint-disable-next-line no-unused-vars
 import { useContext, useState } from "react"
 import { ShopContext } from "../../context/ShopContext"
 import razorpay from "../Assets/razorpay_logo.png"
@@ -11,6 +9,7 @@ import "react-toastify/dist/ReactToastify.css"
 import axios from "axios"
 import { BASEURL } from "../../config"
 import { useNavigate } from "react-router-dom"
+import { useLocation } from "react-router-dom";
 import "./Checkout.css"
 
 const OrderSuccessPopup = () => {
@@ -25,7 +24,9 @@ const OrderSuccessPopup = () => {
 }
 
 const Checkout = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const location = useLocation();
+  const offerCode = location.state?.offerCode || ""
   const [method, setMethod] = useState("Cash on Delivery")
   const [showSuccessPopup, setShowSuccessPopup] = useState(false)
   const [isLoading, setIsLoading] = useState(false) // Added loading state
@@ -50,12 +51,9 @@ const Checkout = () => {
     const { name, value } = event.target
     setFormData((data) => ({ ...data, [name]: value }))
   }
-
   const onSubmitHandler = async (event) => {
     event.preventDefault()
-    setIsLoading(true) // Set loading state to true
-
-    // Show the success popup immediately
+    setIsLoading(true) 
     setShowSuccessPopup(true)
 
     try {
@@ -82,7 +80,7 @@ const Checkout = () => {
           return {
             productId: cartItem.productId,
             size: cartItem.size,
-            productName: product.name, // Matches backend expected key
+            productName: product.name,
             quantity: cartItem.quantity,
             price: product.price,
           }
@@ -101,32 +99,30 @@ const Checkout = () => {
         items: orderItems,
         totalAmount,
         paymentMethod: method,
+        offerCode: offerCode || undefined, 
       }
 
-      // Send order request
+
       const response = await axios.post(`${BASEURL}/api/orders/place`, orderData, {
         headers: { Authorization: `Bearer ${token}` },
       })
 
       if (response.data.success) {
-        // Clear cart after successful order
         setCartItems([])
-
-        // Navigate to orders page after a short delay
         setTimeout(() => {
           setShowSuccessPopup(false)
-          setIsLoading(false) // Set loading state to false
+          setIsLoading(false) 
           navigate("/")
         }, 2000)
       } else {
         setShowSuccessPopup(false)
-        setIsLoading(false) // Set loading state to false
+        setIsLoading(false) 
         toast.error(response.data.message || "Failed to place order.")
       }
     } catch (error) {
       console.error(error)
       setShowSuccessPopup(false)
-      setIsLoading(false) // Set loading state to false
+      setIsLoading(false) 
       toast.error(error.response?.data?.message || "An error occurred while placing your order.")
     }
   }
@@ -154,9 +150,6 @@ const Checkout = () => {
               onClick={() => setMethod("Cash on Delivery")}
             >
               <img src={CashonDelivery || "/placeholder.svg"} alt="CashonDelivery" className="payment-logo" />
-              {/* <span className="payment-text">
-                CASH ON DELIVERY
-              </span> */}
             </div>
           </div>
         </fieldset>

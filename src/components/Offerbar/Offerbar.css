@@ -9,20 +9,19 @@
     --border-width: 2px;
     --container-height: 64px;
     --number-size: 1.5rem;
-    --label-size: 0.75rem;
+    --label-size: 1rem;
     --sale-text-size: 1.2rem;
   }
-  
-  /* Wrapper to ensure full width */
+
   .sale-wrapper {
-    width: 99.4vw;
+    top:60px;
+    width: 100%;
     position: relative;
-    left: 50%;
-    right: 50%;
-    margin-left: -50vw;
-    margin-right: -50vw;
     background: linear-gradient(to right, #1f1c2c, #928dab);
+    overflow: hidden;
+    z-index: 1000;
   }
+  
   
   .sale-container {
     display: flex;
@@ -79,6 +78,15 @@
     padding: var(--spacing-sm);
     transition: transform 0.2s ease;
   }
+  .code-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-width: 60px;
+    padding: var(--spacing-sm);
+    transition: transform 0.2s ease;
+  }
   
   .time-unit:hover {
     transform: translateY(-2px);
@@ -101,14 +109,17 @@
     margin-top: 2px;
     font-weight: 700;
   }
-  
+ 
   .marquee-section {
     flex: 1;
     overflow: hidden;
     position: relative;
     display: flex;
     align-items: center;
+    padding: var(--spacing-sm);
+    min-height: 40px;
   }
+  
   
   .marquee-content {
     display: flex;
@@ -216,4 +227,29 @@
     }
   }
   
-  
+
+  .sale-wrapper,
+.sale-container,
+.timer-section,
+.marquee-section {
+  display: flex !important;
+}
+
+ .offer-date-range {
+  background-color: #fff3cd;
+  color: #856404;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 16px;
+  font-weight: 600;
+  display: inline-block;
+  margin: 8px 0;
+  box-shadow: 0 0 10px rgba(255, 193, 7, 0.2);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.03); }
+  100% { transform: scale(1); }
+}

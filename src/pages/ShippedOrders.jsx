@@ -69,7 +69,7 @@ function ShippedOrders({ updateTotalOrders, updateTotalSales }) {
   const filteredOrders = addresses
     .filter(
       (order) =>
-        order.address.firstName.toLowerCase().includes(searchTerm.toLowerCase()) && order.status === "ConfirmedOrder",
+        order.address.firstName?.toLowerCase().includes(searchTerm?.toLowerCase()) && order.status === "ConfirmedOrder",
     )
     .sort((a, b) => moment(b.createdAt).valueOf() - moment(a.createdAt).valueOf())
 
@@ -117,26 +117,26 @@ function ShippedOrders({ updateTotalOrders, updateTotalSales }) {
                   <td data-label="Sr. No">{totalItems - (indexOfFirstItem + index)}</td>
                   <td data-label="Product Details">
                     <div>
-                      <p>Product Id: {order.items[0].productId}</p>
+                      <p><strong>Product Id:</strong> {order.items[0].productId}</p>
                       {/* <p>Product name: {order.items[0].productName}</p> */}
-                      <p>Size: {order.items[0].size}</p>
-                      <p>Quantity: {order.items[0].quantity}</p>
+                      <p><strong>Size:</strong> {order.items[0].size}</p>
+                      <p><strong>Quantity:</strong> {order.items[0].quantity}</p>
                     </div>
                   </td>
                   <td data-label="User Details">
                     <div>
-                      <p>First Name: {order.address.firstName}</p>
-                      <p>Last Name: {order.address.lastName}</p>
-                      <p>Email: {order.address.email}</p>
-                      <p>Phone: {order.address.phone}</p>
+                      <p><strong>Name:</strong> {order.address.firstName} {order.address.lastName}</p>
+                      {/* <p>Last Name: {order.address.lastName}</p> */}
+                      <p><strong>Email:</strong> {order.address.email}</p>
+                      <p><strong>Phone:</strong> {order.address.phone}</p>
                     </div>
                   </td>
                   <td data-label="Address">
                     <div>
-                      <p>Street: {order.address.street}</p>
-                      <p>City: {order.address.city}</p>
-                      <p>State: {order.address.state}</p>
-                      <p>Landmark: {order.address.landMark}</p>
+                      <p><strong>Street:</strong> {order.address.street}</p>
+                      <p><strong>City:</strong> {order.address.city}</p>
+                      <p><strong>State:</strong> {order.address.state}</p>
+                      <p><strong>Landmark:</strong> {order.address.landMark}</p>
                     </div>
                   </td>
                   <td data-label="Payment Method">{order.paymentMethod}</td>

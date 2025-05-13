@@ -21,27 +21,6 @@ const AuthContextProvider = ({ children }) => {
   });
 
   const { setToken: setShopToken } = useContext(ShopContext);
-
-
-  // const login = (userData, authToken) => {
-  //   setUser(userData);
-  //   setToken(authToken);
-
-  //   // Store user and token in localStorage
-  //   localStorage.setItem("user", JSON.stringify(userData));
-  //   localStorage.setItem("token", authToken);
-  // };
-
-  // const logout = () => {
-  //   setUser(null);
-  //   setToken("");
-
-  //   // Clear user and token from localStorage
-  //   localStorage.removeItem("user");
-  //   localStorage.removeItem("token");
-  // };
-
-
   const login = (userData, authToken) => {
     setUser(userData);
     setToken(authToken);
@@ -57,16 +36,6 @@ const AuthContextProvider = ({ children }) => {
     localStorage.removeItem("user");
     localStorage.removeItem("token");
   };
-
-
-  // useEffect(() => {
-  //   // Sync state with localStorage on component mount
-  //   const storedUser = localStorage.getItem("user");
-  //   const storedToken = localStorage.getItem("token");
-
-  //   if (storedUser) setUser(JSON.parse(storedUser));
-  //   if (storedToken) setToken(storedToken);
-  // }, []);
 
   useEffect(() => {
     const storedUser = localStorage.getItem("user");

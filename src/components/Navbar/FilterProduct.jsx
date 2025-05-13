@@ -65,19 +65,6 @@ useEffect(() => {
   return (
     <div className="container">
       <h1 className="title">{category} Products</h1>
-      {/* <div className="product-grid">
-        {products.length > 0 ? (
-          products.map((product) => (
-            <div key={product._id} className="product-card">
-              <img src={product.images} alt={product.name} className="product-image" />
-              <h3 className="product-name">{product.name}</h3>
-              <p className="product-price">${product.price}</p>
-            </div>
-          ))
-        ) : (
-          <p className="no-products">No products found for {category}.</p>
-        )}
-      </div> */}
       <div>
       <div className="product-grid">
           {products.length > 0 ? (
@@ -96,7 +83,7 @@ useEffect(() => {
                     <span className="new-price">Rs.{item.price.toFixed(2)}</span>
                     {item.oldPrice && <span className="old-price">Rs.{item.oldPrice.toFixed(2)}</span>}
                   </div>
-                  <button onClick={() => handleViewProduct(item)} className="view-product-btn" style={{backgroundColor:'#2563eb'}}>
+                  <button onClick={() => handleViewProduct(item)} className="view-product-btn" >
                     VIEW PRODUCT
                   </button>
                 </div>

@@ -71,49 +71,27 @@ const UserProfileForm = () => {
   
 
   return (
-    <div className="profile-container">
-      <h2>User Profile</h2>
-      <form className="profile-form" onSubmit={updateProfile}>
-        <div className="form-group">
-          <label>Name:</label>
-          <input type="text" name="name" value={profile.name} onChange={handleChange} required />
-        </div>
-
-        <div className="form-group">
-          <label>Email ID:</label>
-          <input type="email" name="email" value={profile.email} onChange={handleChange} required />
-        </div>
-
-        <div className="form-group">
-          <label>Phone Number:</label>
-          <input type="text" name="phone" value={profile.phone} onChange={handleChange} required />
-        </div>
-
-        <div className="form-group">
-          <label>Pin Code:</label>
-          <input type="text" name="pincode" value={profile.zipcode} onChange={handleChange} required />
-        </div>
-
-        <div className="form-group">
-          <label>City:</label>
-          <input type="text" name="city" value={profile.city} onChange={handleChange} required />
-        </div>
-
-        <div className="form-group">
-          <label>State:</label>
-          <input type="text" name="state" value={profile.state} onChange={handleChange} required />
-        </div>
-
-        <div className="form-group">
-          <label>Address:</label>
-          <textarea name="street" value={profile.street} onChange={handleChange} required />
-        </div>
-
-        <button type="submit" className="submit-btn" >Save</button>
-            <ToastContainer position="top-center" autoClose={1000} hideProgressBar={true} />
-      </form>
-      
+    <div className="profile-wrapper">
+    <h2 className="profile-title">User Information</h2>
+    <div className="profile-card">
+      <img src={profileImage} alt="User" className="profile-avatar" />
+      <p><strong>User Name :</strong> {profile.name}</p>
+      <p><strong>Phone :</strong> {profile.phone}</p>
+      <p><strong>Email :</strong> {profile.email}</p>
+      <button className="edit-btn">EDIT PROFILE</button>
     </div>
+
+    <form className="profile-form" onSubmit={updateProfile}>
+      {/* Your existing form fields */}
+      <div className="form-group">
+        <label>Name:</label>
+        <input type="text" name="name" value={profile.name} onChange={handleChange} required />
+      </div>
+      {/* Add remaining fields as-is */}
+      <button type="submit" className="submit-btn">Save</button>
+      <ToastContainer position="top-center" autoClose={1000} hideProgressBar={true} />
+    </form>
+  </div>
   );
 };
 

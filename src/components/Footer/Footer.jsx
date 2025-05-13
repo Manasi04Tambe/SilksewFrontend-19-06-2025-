@@ -5,18 +5,12 @@ import footer_logo from "../Assets/logo_big.png"
 import instagram_icon from "../Assets/instagram_icon.png"
 import pintester_icon from "../Assets/pintester_icon.png"
 import whatsapp_icon from "../Assets/whatsapp_icon.png"
-//import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api"
 
 const Footer = () => {
   const mapStyles = {
     height: "100%",
     width: "100%",
   }
-
-  // const defaultCenter = {
-  //   lat: 18.561252,
-  //   lng: 73.9443581,
-  // }
 
   return (
     <footer className="footer" role="contentinfo">
@@ -46,13 +40,6 @@ const Footer = () => {
             </ul>
           </nav>
 
-
-
-          {/* <LoadScript googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY}>
-            <GoogleMap mapContainerStyle={mapStyles} zoom={14} center={defaultCenter}>
-              <Marker position={defaultCenter} />
-            </GoogleMap>
-          </LoadScript><br/> */}
 
           <p className="footer-copyright">
             &copy; {new Date().getFullYear()}{" "}

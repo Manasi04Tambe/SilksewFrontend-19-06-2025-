@@ -1,17 +1,22 @@
-import { useContext, useEffect, useState } from "react";
+
+import { useContext, useState } from "react";
 import "./CartItems.css";
 import { ShopContext } from "../../context/ShopContext";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
-import axios from "axios";
-import "react-toastify/dist/ReactToastify.css";
-import { BASEURL } from "../../config"; // make sure you have this
 
 const CartItems = () => {
   const { cartItems, removeFromCart, getTotalCartAmount, products } = useContext(ShopContext);
-  const [localCartItems, setLocalCartItems] = useState(cartItems);
-  const [localProducts, setLocalProducts] = useState(products);
+
+  const [offerCode, setOfferCode] = useState("");
+  const [discountedTotal, setDiscountedTotal] = useState(null);
+
   const navigate = useNavigate();
+  const location = useLocation();
+
+  if (!products || products.length === 0) {
+    return <div>Loading products...</div>;
+  }
 
   const getImage = (images, color) => {
     if (images && images.length > 0) {
@@ -31,22 +36,6 @@ const CartItems = () => {
     return "/placeholder.svg";
   };
 
-  useEffect(() => {
-    setLocalCartItems(cartItems);
-    setLocalProducts(products);
-  }, [cartItems, products]);
-
-  useEffect(() => {
-    const missing = cartItems
-      .map((item) => item.productId)
-      .filter((id) => !products.some((p) => p._id === id))
-  
-    if (missing.length > 0) {
-      console.warn("Missing product IDs:", missing)
-    }
-  }, [cartItems, products])
-  
-
   return (
     <div className="cartitems">
       <div className="cartitems-header">
@@ -60,25 +49,24 @@ const CartItems = () => {
         <p>Remove</p>
       </div>
       <hr />
-      {localCartItems.map((cartItem) => {
+      {cartItems.length === 0 && <p>Your cart is empty.</p>}
+      {cartItems.map((cartItem) => {
         const { productId, quantity, size, color } = cartItem;
-        const product = localProducts.find((p) => String(p._id) === String(productId));
+        const product = products.find((p) => String(p._id) === String(productId));
 
         if (!product) {
-          console.warn(`Product with ID ${productId} not found.`);
-          return null;
+          return (
+            <div key={`${productId}-${size}-${color}`} >
+            </div>
+          );
         }
 
+        const imageUrl = getImage(product?.images, color);
         const displayColor = color || "Default";
 
         return (
           <div key={`${productId}-${size}-${color}`} className="cartitem">
-            <img
-              src={getImage(product.images, color) || "/placeholder.svg"}
-              alt={product.name}
-              className="product-image"
-              style={{ height: "50px" }}
-            />
+            <img src={imageUrl} alt={product.name} />
             <p>{product.name}</p>
             <p>Rs {product.price}</p>
             <p>{displayColor}</p>
@@ -90,51 +78,59 @@ const CartItems = () => {
         );
       })}
       <hr />
-      <div className="cartitems-down">
-        <div className="cartitems-total">
-          <h1>Cart Totals</h1>
-          <div>
-            <div className="cartitems-total-item">
-              <p>Subtotal</p>
-              <p>Rs.{getTotalCartAmount()}</p>
+      {location.pathname === "/cart" && (
+        <div className="cartitems-down">
+          <div className="cartitems-total">
+            <h1>Cart Totals</h1>
+            <div>
+              <div className="cartitems-total-item">
+                <p>Subtotal</p>
+                <p>Rs.{getTotalCartAmount()}</p>
+              </div>
+              <hr />
+              <div className="cartitems-total-item">
+                <p>Shipping Fee</p>
+                <p>Free</p>
+              </div>
+              <hr />
+              <div className="cartitems-total-item">
+                <h3>Total</h3>
+                <h3>Rs.{getTotalCartAmount()}</h3>
+              </div>
             </div>
-            <hr />
-            <div className="cartitems-total-item">
-              <p>Shipping Fee</p>
-              <p>Free</p>
-            </div>
-            <hr />
-            <div className="cartitems-total-item">
-              <h3>Total</h3>
-              <h3>Rs.{getTotalCartAmount()}</h3>
+            <button
+              onClick={() => {
+                if (cartItems.length === 0) {
+                  toast.error("Your cart is empty!", {
+                    position: "top-center",
+                    autoClose: 2000,
+                  });
+                  return;
+                }
+                navigate("/checkout", { state: { offerCode }});
+              }}
+              style={{ marginTop: "12px" }}
+            >
+              PROCEED TO CHECKOUT
+            </button>
+          </div>
+          <div className="cartitems-promocode">
+            <p>If you have a promo code, enter it here</p>
+            <div className="cartitems-promobox" style={{ marginTop: "20px" }}>
+              <input
+                type="text"
+                placeholder="Promo code"
+                value={offerCode}
+                onChange={(e) => setOfferCode(e.target.value)}
+              />
+              <button>Apply</button>
             </div>
           </div>
-          <button
-            onClick={() => {
-              if (localCartItems.length === 0) {
-                toast.error("Your cart is empty!", {
-                  position: "top-center",
-                  autoClose: 2000,
-                });
-                return;
-              }
-              navigate("/checkout");
-            }}
-            style={{marginTop:"12px"}}
-          >
-            PROCEED TO CHECKOUT
-          </button>
         </div>
-        <div className="cartitems-promocode">
-          <p>If you have a promo code, enter it here</p>
-          <div className="cartitems-promobox" style={{marginTop:"20px"}}>
-            <input type="text" placeholder="Promo code"  />
-            <button >Submit</button>
-          </div>
-        </div>
-      </div>
+      )}
     </div>
   );
 };
 
 export default CartItems;
+
