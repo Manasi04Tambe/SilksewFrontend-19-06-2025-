@@ -5,7 +5,7 @@ const PrivacyPolicy = () => {
     container: {
       width: "100%",
       maxWidth: "100%",
-      margin: "0",
+      margin: "50px",
       padding: "30px",
       backgroundColor: "#ffffff",
       fontFamily: "Arial, sans-serif",

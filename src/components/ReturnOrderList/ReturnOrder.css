@@ -1,12 +1,17 @@
 .order-list-container {
-    padding: 20px;
-    background: #f9fafc;
-    border-radius: 10px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    max-width: 90%;
-    margin: auto;
+  padding: 32px 40px; /* 32px top/bottom, 40px left/right */
+  background: #f9fafc;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  max-width: 90%;
+  margin: auto;
+}
+
+@media (max-width: 480px) {
+  .order-list-container {
+    padding: 16px 24px; /* Reduced padding for mobile */
   }
-  
+}
   h2 {
     text-align: center;
     margin-bottom: 20px;

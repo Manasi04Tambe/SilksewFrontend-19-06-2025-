@@ -6,13 +6,12 @@ import { ShopContext } from "../../context/ShopContext"
 import { AuthContext } from "../../context/AuthContext"
 import logo from "../Assets/logo.png"
 import cart_icon from "../Assets/cart_icon.png"
-import { User, Menu, Bold } from "lucide-react"
+import { User, Menu } from "lucide-react"
 import "../Navbar/Navbar.css"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 
-
-const Navbar = ({ onLoginClick }) => {
+const Navbar = () => {
   const [menu, setMenu] = useState("shop")
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const { user } = useContext(AuthContext)
@@ -44,14 +43,12 @@ const Navbar = ({ onLoginClick }) => {
 
   const calculateTotalCartItems = () => {
     return cartItems.reduce((total, item) => total + item.quantity, 0)
-
   }
 
   useEffect(() => {
     const totalCount = cartItems.reduce((total, item) => total + item.quantity, 0)
     console.log("🛒 Total cart item count:", totalCount)
   }, [cartItems])
-  
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen)
@@ -84,7 +81,7 @@ const Navbar = ({ onLoginClick }) => {
     <nav className="navbar" style={{position:'fixed', backgroundColor:"#4d0000"}}>
       <div className="nav-logo">
         <img src={logo || "/placeholder.svg"} alt="Logo" />
-        <Link to="/" style={{ textDecoration: "none", color: "white",marginTop: "7px" }}>
+        <Link to="/" style={{ textDecoration: "none", color: "white", marginTop: "7px" }}>
           <p>SILKSEW</p>
         </Link>
       </div>
@@ -135,7 +132,7 @@ const Navbar = ({ onLoginClick }) => {
                 type="submit"
                 style={{
                   width: '50px',
-                  backgroundColor: '#febd69', 
+                  backgroundColor: '#febd69',
                   border: 'none',
                   display: 'flex',
                   alignItems: 'center',
@@ -146,9 +143,7 @@ const Navbar = ({ onLoginClick }) => {
                 <FontAwesomeIcon icon={faMagnifyingGlass} style={{ color: '#333', fontSize: '18px' }} />
               </button>
             </form>
-
           </div>
-
         )}
       </div>
 
@@ -164,15 +159,14 @@ const Navbar = ({ onLoginClick }) => {
               <User className="profile-icon clickable" style={{ height: '30px' }} />
             </Link>
           ) : (
-            <Link onClick={onLoginClick} className="login-btn" style={{"backgroundColor": "#f0ad4e"}}>
+            <Link to="/login" className="login-btn" style={{"backgroundColor": "#f0ad4e"}}>
               Login
             </Link>
-
           )}
         </div>
         <div className="hamburger-wrapper">
           <div className="mobile-icons">
-            <Link to="/cart" className="mobile-cart-icon-wrapper" >
+            <Link to="/cart" className="mobile-cart-icon-wrapper">
               <img src={cart_icon || "/placeholder.svg"} alt="Cart" className="mobile-cart-icon" />
               {calculateTotalCartItems() > 0 && (
                 <div className="mobile-cart-item-count">{calculateTotalCartItems()}</div>
@@ -194,4 +188,3 @@ const Navbar = ({ onLoginClick }) => {
 }
 
 export default Navbar
-

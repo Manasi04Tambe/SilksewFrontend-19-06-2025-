@@ -1,4 +1,3 @@
-
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom"
 import Navbar from "./components/Navbar/Navbar"
 import Shop from "./pages/Shop"
@@ -26,24 +25,19 @@ import FloatingButtons from "./components/FloatingButtons/FloatingButtons"
 import OrderItems from "./components/OrderItems/OrderItems"
 import PrivacyPolicy from "./components/Footer/PrivacyPolicy"
 import TermsServices from "./components/Footer/TermsServices"
-import { Navigate } from "react-router-dom";
-import { useState } from "react"
 
-
-const ConditionalNavbar = ({ onLoginClick }) => {
+const ConditionalNavbar = () => {
   const location = useLocation()
   const excludeNavbarRoutes = ["/admin"]
-  return !excludeNavbarRoutes.includes(location.pathname) ? <Navbar onLoginClick={onLoginClick} /> : null
+  return !excludeNavbarRoutes.includes(location.pathname) ? <Navbar /> : null
 }
 
-// Create a component to conditionally render FloatingButtons
 const ConditionalFloatingButtons = () => {
   const location = useLocation()
-  const excludeFloatingButtonsRoutes = ["/admin"] // Define routes where FloatingButtons should not appear
+  const excludeFloatingButtonsRoutes = ["/admin"]
   return !excludeFloatingButtonsRoutes.includes(location.pathname) ? <FloatingButtons /> : null
 }
 
-// Create a component to conditionally render Footer
 const ConditionalFooter = () => {
   const location = useLocation()
   const excludeFooterRoutes = ["/admin", "/user-profile-buttons", "/your-order"];
@@ -51,14 +45,11 @@ const ConditionalFooter = () => {
 }
 
 function App() {
-
-  const [isLoginOpen, setIsLoginOpen] = useState(false);
-  
   return (
     <AuthContextProvider>
       <BrowserRouter>
         <div>
-        <ConditionalNavbar onLoginClick={() => setIsLoginOpen(true)} />
+          <ConditionalNavbar />
           <Routes>
             {/* Public Routes */}
             <Route path="/" element={<Shop />} />
@@ -68,6 +59,7 @@ function App() {
             <Route path="/cart" element={<Cart />} />
             <Route path="/product/:productId" element={<Product />} />
             <Route path="/signup" element={<LoginSignup />} />
+            <Route path="/login" element={<Login />} />
             <Route path="/checkout" element={<Checkout />} />
             <Route path="/password-reset" element={<PasswordReset />} />
             <Route path="/forgotPassword/:id/:token" element={<ForgotPassword />} />
@@ -79,9 +71,6 @@ function App() {
             <Route path="/Privacy_Policy" element={<PrivacyPolicy />} />
             <Route path="/Terms" element={<TermsServices />} />
 
-           
-            <Route path="/login" element={<Navigate to="/" />} />
-
             {/* Protected Admin Route */}
             <Route
               path="/admin"
@@ -91,9 +80,7 @@ function App() {
                 </ProtectedRoute>
               }
             />
-
           </Routes>
-          <Login isOpen={isLoginOpen} onClose={() => setIsLoginOpen(false)} />
           <ConditionalFloatingButtons />
           <ConditionalFooter />
           <ToastContainer />
