@@ -4,7 +4,7 @@ import { useState, useContext, useEffect } from "react"
 import { Link, useNavigate, useLocation } from "react-router-dom"
 import { ShopContext } from "../../context/ShopContext"
 import { AuthContext } from "../../context/AuthContext"
-import logo from "../Assets/logo.png"
+import logo from "../Assets/Untitled design-modified.png"
 import cart_icon from "../Assets/cart_icon.png"
 import { User, Menu } from "lucide-react"
 import "../Navbar/Navbar.css"
@@ -78,7 +78,7 @@ const Navbar = () => {
   }
 
   return (
-    <nav className="navbar" style={{position:'fixed', backgroundColor:"#4d0000"}}>
+    <nav className="navbar" style={{position:'fixed', backgroundColor:"#2C2C2C"}}>
       <div className="nav-logo">
         <img src={logo || "/placeholder.svg"} alt="Logo" />
         <Link to="/" style={{ textDecoration: "none", color: "white", marginTop: "7px" }}>
@@ -166,12 +166,10 @@ const Navbar = () => {
         </div>
         <div className="hamburger-wrapper">
           <div className="mobile-icons">
-            <Link to="/cart" className="mobile-cart-icon-wrapper">
-              <img src={cart_icon || "/placeholder.svg"} alt="Cart" className="mobile-cart-icon" />
-              {calculateTotalCartItems() > 0 && (
-                <div className="mobile-cart-item-count">{calculateTotalCartItems()}</div>
-              )}
-            </Link>
+            <Link to="/cart" className="cart-icon-wrapper">
+            <img src={cart_icon || "/placeholder.svg"} alt="Cart" className="cart-icon" />
+            {calculateTotalCartItems() > 0 && <div className="cart-item-count" style={{color: "black"}}>{calculateTotalCartItems()}</div>}
+          </Link>
             {user && (
               <Link to="/user-profile-buttons" className="mobile-profile-icon-wrapper">
                 <User className="mobile-profile-icon" style={{ height: '30px' }} />
@@ -187,4 +185,4 @@ const Navbar = () => {
   )
 }
 
-export default Navbar
+export default Navbar  

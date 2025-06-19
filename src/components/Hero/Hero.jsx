@@ -123,10 +123,6 @@ const Hero = () => {
                   <span className="hero-subtitle">{slide.subtitle}</span>
                 </h1>
                 <p className="hero-description">{slide.description}</p>
-                <a href={slide.link} className="hero-button">
-                  Explore Now
-                  <ArrowRight className="button-icon" size={20} />
-                </a>
               </div>
             </div>
           </div>

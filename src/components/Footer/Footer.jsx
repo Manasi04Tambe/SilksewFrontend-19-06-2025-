@@ -5,6 +5,7 @@ import footer_logo from "../Assets/logo_big.png"
 import instagram_icon from "../Assets/instagram_icon.png"
 import pintester_icon from "../Assets/pintester_icon.png"
 import whatsapp_icon from "../Assets/whatsapp_icon.png"
+import logo from "../Assets/siksewmodified.png"; 
 
 const Footer = () => {
   const mapStyles = {
@@ -17,7 +18,7 @@ const Footer = () => {
         <div className="footer-container">
         <div className="footer-section footer-left">
           <Link to="/" className="footer-brand">
-            <img src={footer_logo || "/placeholder.svg"} alt="SILKSEW logo" className="footer-logo" />
+            <img src={logo || "/placeholder.svg"} alt="SILKSEW logo" className="footer-logo" />
             <h2 className="footer-title">SILKSEW</h2>
           </Link>
           <nav className="footer-nav" aria-label="Footer Navigation">
@@ -43,8 +44,8 @@ const Footer = () => {
 
           <p className="footer-copyright">
             &copy; {new Date().getFullYear()}{" "}
-            <a href="https://www.cobaztech.com/" target="_blank" rel="noopener noreferrer" className="footer-link">
-              Cobaztech
+            <a href="info@webutsav.com" target="_blank" rel="noopener noreferrer" className="footer-link">
+              Webutsav
             </a>
             . All rights reserved.
           </p>
@@ -78,7 +79,7 @@ const Footer = () => {
               </div>
               <p className="footer-text">
                 <a href="mailto:info@cobazTech.com" className="footer-link">
-                  info@cobazTech.com
+                  info@webutsav.com
                 </a>
               </p>
             </div>

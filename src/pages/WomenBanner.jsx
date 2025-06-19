@@ -30,10 +30,6 @@ const WomenBanner = () => {
               <span className="static-subtitle">{staticContent.subtitle}</span>
             </h1>
             <p className="static-description">{staticContent.description}</p>
-            <a href={staticContent.link} className="static-button">
-              Learn More
-              <ArrowRight className="button-icon" size={20} />
-            </a>
           </div>
         </div>
       </div>
