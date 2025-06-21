@@ -388,7 +388,7 @@
 
 //       // Send to backend
 //       const response = await axios.post(
-//         "http://localhost:5001/api/products",
+//         "https://api.silksew.com/api/products",
 //         productData,
 //         {
 //           headers: {
@@ -1012,7 +1012,7 @@ const AdminProductForm = () => {
 
       // Send to backend
       const response = await axios.post(
-        "http://localhost:5001/api/products",
+        "https://api.silksew.com/api/products",
         productData,
         {
           headers: {
@@ -1642,7 +1642,7 @@ export default AdminProductForm;
 //       productData.append("images", JSON.stringify(uploadedImagesByColor))
 
 //       // Send to backend
-//       const response = await axios.post("http://localhost:5001/api/products", productData, {
+//       const response = await axios.post("https://api.silksew.com/api/products", productData, {
 //         headers: {
 //           Authorization: `Bearer ${localStorage.getItem("token")}`,
 //           "Content-Type": "multipart/form-data",
