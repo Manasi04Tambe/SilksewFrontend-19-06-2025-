@@ -314,7 +314,7 @@ const OfferForm = () => {
           </form>
         </div>
       </div>
-      <ToastContainer />
+      <ToastContainer style={{marginTop:50}} />
     </>
   );
 };
